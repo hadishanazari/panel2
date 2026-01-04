@@ -1,0 +1,36 @@
+backend:
+  name: github
+  # ⚠️ خط پایین رو با نام کاربری و مخزن خودت عوض کن (مثلا: ali/behsaz-machin)
+  repo: https://hadishanazari.github.io/panel2/ 
+  branch: main
+
+# تنظیمات پوشه عکس‌ها
+media_folder: "picture"
+public_folder: "picture"
+
+# تعریف بخش‌های قابل ویرایش
+collections:
+  # بخش ۱: تنظیمات کلی (مثل متن هدر زرد رنگ)
+  - name: "settings"
+    label: "تنظیمات سایت"
+    files:
+      - file: "_data/settings.yml"
+        label: "تنظیمات هدر و فوتر"
+        name: "general_settings"
+        fields:
+          - {label: "متن نوار زرد بالا", name: "topbar_text", widget: "string"}
+          - {label: "شماره تماس", name: "contact_phone", widget: "string", required: false}
+
+  # بخش ۲: صفحات سایت
+  - name: "pages"
+    label: "صفحات"
+    files:
+      - file: "index.html"
+        label: "صفحه اصلی"
+        name: "home"
+        fields:
+          - {label: "عنوان صفحه (Title)", name: "title", widget: "string"}
+          # این فیلد برای تغییر عکس بنر بزرگ (Hero) است
+          - {label: "تصویر بنر اصلی", name: "hero_image", widget: "image"}
+          # این فیلد برای نوشتن متن پایین بنر است
+          - {label: "محتوای متنی پایین بنر", name: "body", widget: "markdown"}
