@@ -1,5 +1,6 @@
+
 title: "سایت صنعتی بهساز ماشین"
-baseurl: ""
-url: "https://yourusername.github.io" # آدرس سایتت رو بعدا اینجا بذار
+baseurl: "/panel2" # 👈 نام مخزن باید اینجا باشه با اسلش اول
+url: "https://hadishanazari.github.io"
 markdown: kramdown
 theme: minima

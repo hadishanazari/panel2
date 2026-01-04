@@ -1,7 +1,7 @@
 backend:
   name: github
   # ⚠️ خط پایین رو با نام کاربری و مخزن خودت عوض کن (مثلا: ali/behsaz-machin)
-  repo: https://hadishanazari.github.io/panel2/ 
+  repo: hadishanazari/panel2
   branch: main
 
 # تنظیمات پوشه عکس‌ها
