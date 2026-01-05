@@ -1,5 +1,5 @@
 ---
 layout: default
-title: three
+title: /three
 ---
 this three page
