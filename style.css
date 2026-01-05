@@ -317,7 +317,7 @@ body {
     /* حذف رنگ پس‌زمینه زرد در حالت عادی موبایل (اختیاری - برای تمیزی بیشتر) */
     .nav-item:hover .nav-link, 
     .nav-item.active .nav-link {
-        background-color: #f9f9f9; /* تغییر رنگ به خاکستری خیلی روشن موقع لمس */
+        background-color: #ffecb3; /* تغییر رنگ به خاکستری خیلی روشن موقع لمس */
         color: #0068a8;
     }
 
