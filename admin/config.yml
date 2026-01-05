@@ -19,6 +19,7 @@ collections:
           - {label: "متن نوار زرد بالا", name: "topbar_text", widget: "string"}
           - {label: "متن صفحه اصلی", name: "test_text", widget: "string"}
           - {label: "شماره تماس", name: "contact_phone", widget: "string", required: false}
+          - {label: "تصویر لوگو", name: "picture", widget: "image"}
 
   # بخش ۲: صفحات سایت
   - name: "pages"
