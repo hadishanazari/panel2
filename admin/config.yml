@@ -34,7 +34,7 @@ collections:
           - {label: "تصویر بنر اصلی", name: "hero_image", widget: "image"}
           # این فیلد برای نوشتن متن پایین بنر است
           - {label: "محتوای متنی پایین بنر", name: "body", widget: "markdown"}
-
+          
           # بخش ۳: ایجاد صفحات جدید (با دکمه مثبت)
   - name: "blog"
     label: "صفحات فرعی"
@@ -43,7 +43,8 @@ collections:
     slug: "{{slug}}"       # اسم فایل برابر با عنوان صفحه می‌شود
     fields:
       # این خط به جکیل می‌گوید از کدام قالب استفاده کند
-      - {label: "قالب", name: "layout", widget: "hidden", default: "page"}
+      - {label: "قالب", name: "layout", widget: "hidden", default: "default"}
       - {label: "عنوان صفحه", name: "title", widget: "string"}
+      - {label: "آدرس انگلیسی (Link)", name: "permalink", widget: "string", hint: "مثلا: /about-us"}
       - {label: "تصویر شاخص", name: "image", widget: "image", required: false}
       - {label: "متن صفحه", name: "body", widget: "markdown"}
