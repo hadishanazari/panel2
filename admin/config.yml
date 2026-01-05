@@ -43,7 +43,7 @@ collections:
     slug: "{{slug}}"       # اسم فایل برابر با عنوان صفحه می‌شود
     fields:
       # این خط به جکیل می‌گوید از کدام قالب استفاده کند
-      - {label: "قالب", name: "layout", widget: "hidden", default: "default"}
+      - {label: "قالب", name: "layout", widget: "hidden", default: "page"}
       - {label: "عنوان صفحه", name: "title", widget: "string"}
       - {label: "تصویر شاخص", name: "image", widget: "image", required: false}
       - {label: "متن صفحه", name: "body", widget: "markdown"}
