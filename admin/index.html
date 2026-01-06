@@ -1,12 +1,55 @@
 <!doctype html>
-<html>
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مدیریت سایت</title>
+  <title>مدیریت سایت سپاهان پخت</title>
+  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <style>
+    /* تغییر رنگ هدر بالا از آبی به زرد برند شما */
+    div[class*="AppHeader-AppHeader"] {
+      background-color: #ffc107 !important; /* کد رنگ زرد */
+      color: #000 !important;
+    }
+    
+    /* تغییر فونت کل پنل (اگر فونت وزیر یا ایران‌سنس دارید آدرسش را ایمپورت کنید) */
+    body {
+      font-family: Tahoma, "Segoe UI", sans-serif !important;
+    }
+
+    /* راست‌چین کردن متون پنل */
+    .cms-editor-visual {
+      direction: rtl;
+      text-align: right;
+    }
+  </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    // الف) لود کردن استایل‌های اصلی سایت در بخش پیش‌نمایش
+    // نکته مهم: آدرس '/css/main.css' را با آدرس واقعی فایل CSS سایت خودتان عوض کنید
+    // اگر سایت جکیل است معمولا: /assets/css/style.css یا /assets/main.css است
+    CMS.registerPreviewStyle("/style.css"); 
+
+    // ب) (اختیاری) ساخت یک کامپوننت ساده برای نمایش بهتر
+    // این بخش باعث می‌شود متن‌ها در پیش‌نمایش وسط‌چین یا استایل‌دار شوند
+    var DefaultPreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        return h('div', {style: {padding: '20px', direction: 'rtl'}},
+          h('h1', {}, entry.getIn(['data', 'title'])),
+          h('div', {className: 'content'}, this.props.widgetFor('body'))
+        );
+      }
+    });
+
+    // اعمال این استایل روی صفحات و بلاگ
+    CMS.registerPreviewTemplate("pages", DefaultPreview);
+    CMS.registerPreviewTemplate("blog", DefaultPreview);
+  </script>
 </body>
 </html>
