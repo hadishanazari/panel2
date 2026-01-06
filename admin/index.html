@@ -4,65 +4,145 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مدیریت سایت سپاهان پخت</title>
+  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    /* استایل‌های خود پنل مدیریت */
+    /* استایل‌های اختصاصی خود پنل ادمین */
     div[class*="AppHeader-AppHeader"] { background-color: #ffc107 !important; color: #000 !important; }
-    body { font-family: Tahoma, "Segoe UI", sans-serif !important; }
+    body { font-family: Vazirmatn, Tahoma, sans-serif !important; }
   </style>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
-    // 1. وصل کردن فایل استایل سایت به بخش پیش‌نمایش
-    CMS.registerPreviewStyle("/style.css"); 
+    // 1. وصل کردن فایل استایل اصلی سایت
+    CMS.registerPreviewStyle("/style.css");
 
-    // 2. ساخت قالب پیش‌نمایش برای "صفحه اصلی" (Home)
+    // 2. ساخت کامپوننت پیش‌نمایش صفحه اصلی
     var HomePreview = createClass({
       render: function() {
         var entry = this.props.entry;
-        // دریافت اطلاعات از فیلدهایی که در config.yml تعریف کردی
         var title = entry.getIn(['data', 'title']);
         var image = entry.getIn(['data', 'hero_image']);
         var body = this.props.widgetFor('body');
-
-        // تبدیل آدرس عکس به فرمت قابل نمایش
         var bgImage = this.props.getAsset(image);
 
-        // ساخت ساختار HTML شبیه به سایت اصلی
-        // اینجا از دستورات React (h) استفاده می‌شود که شبیه HTML است
-        return h('div', {className: 'home-preview-wrapper'},
+        // -- شروع ساختار صفحه --
+        return h('div', {dir: 'rtl'},
           
-          // نمایش بنر و تصویر پس‌زمینه
-          h('div', {
-            className: 'hero-section', 
-            style: {
-              backgroundImage: bgImage ? 'url(' + bgImage.toString() + ')' : 'none',
-              backgroundSize: 'cover',
-              padding: '50px',
-              textAlign: 'center',
-              color: '#fff',
-              minHeight: '300px'
-            }
-          },
-            h('h1', {}, title) // نمایش عنوان روی بنر
-          ),
+          // --- بخش هدر (دقیقاً مشابه فایل header.html) ---
+          h('header', {className: 'site-header'},
+            // نوار زرد بالا
+            h('div', {className: 'top-bar'},
+              h('div', {className: 'top-bar-container'},
+                // متن نوار بالا (چون دسترسی به تنظیمات نیست، متن پیش‌فرض را گذاشتم)
+                h('p', {className: 'desktop-text'}, 'تولید کننده انواع سیستم های شست و شوی صنعتی'),
+                h('div', {className: 'social-icons'},
+                  h('a', {href: '#'}, h('i', {className: 'fab fa-instagram'})),
+                  h('a', {href: '#'}, h('i', {className: 'fab fa-youtube'})),
+                  h('a', {href: '#'}, h('i', {className: 'fab fa-whatsapp'})),
+                  h('a', {href: '#'}, h('i', {className: 'fab fa-telegram-plane'}))
+                )
+              )
+            ),
 
-          // نمایش متن پایین بنر
-          h('div', {className: 'container', style: {padding: '20px'}},
-            body
+            // منوی اصلی و لوگو
+            h('nav', {className: 'main-nav'},
+              h('a', {href: '#', className: 'logo-container'},
+                // آدرس لوگو را فرضی گذاشتم، اگر نمایش نداد مهم نیست چون ساختار حفظ شده
+                h('img', {src: '/picture/logo.png', alt: 'سپاهان پخت', className: 'logo-img'})
+              ),
+
+              h('ul', {className: 'nav-list'},
+                h('li', {className: 'nav-item active'}, h('a', {href: '#', className: 'nav-link'}, 'صفحه اصلی')),
+                h('li', {className: 'nav-item has-dropdown'},
+                  h('a', {href: '#', className: 'nav-link'}, 'خرید دستگاه قطعه شویی'),
+                  h('ul', {className: 'dropdown-menu'},
+                    h('li', {}, h('a', {href: '#'}, 'دستگاه سبک')),
+                    h('li', {}, h('a', {href: '#'}, 'دستگاه سنگین')),
+                    h('li', {}, h('a', {href: '#'}, 'دستگاه فوق سنگین'))
+                  )
+                ),
+                h('li', {className: 'nav-item'}, h('a', {href: '#', className: 'nav-link'}, 'رضایت مشتریان')),
+                h('li', {className: 'nav-item has-dropdown'},
+                  h('a', {href: '#', className: 'nav-link'}, 'فروش شرایطی'),
+                  h('ul', {className: 'dropdown-menu'},
+                    h('li', {}, h('a', {href: '#'}, 'فروش اقساطی')),
+                    h('li', {}, h('a', {href: '#'}, 'ساخت سفارشی'))
+                  )
+                ),
+                h('li', {className: 'nav-item has-dropdown'},
+                  h('a', {href: '#', className: 'nav-link'}, 'نمایندگی'),
+                  h('ul', {className: 'dropdown-menu'},
+                    h('li', {}, h('a', {href: '#'}, 'تهران')),
+                    h('li', {}, h('a', {href: '#'}, 'شیراز')),
+                    h('li', {}, h('a', {href: '#'}, 'مشهد'))
+                  )
+                ),
+                h('li', {className: 'nav-item has-dropdown'},
+                  h('a', {href: '#', className: 'nav-link'}, 'آموزش'),
+                  h('ul', {className: 'dropdown-menu'},
+                    h('li', {}, h('a', {href: '#'}, 'وبلاگ')),
+                    h('li', {}, h('a', {href: '#'}, 'ویدیوها'))
+                  )
+                ),
+                h('li', {className: 'nav-item'}, h('a', {href: '#', className: 'nav-link'}, 'سوالات پرتکرار')),
+                h('li', {className: 'nav-item'}, h('a', {href: '#', className: 'nav-link'}, 'درباره ما')),
+                h('li', {className: 'nav-item'}, h('a', {href: '#', className: 'nav-link'}, 'تماس با ما'))
+              ),
+
+              h('div', {className: 'left-actions'},
+                h('a', {href: '#', className: 'search-btn'}, h('i', {className: 'fas fa-search'})),
+                h('div', {className: 'hamburger'},
+                  h('span', {className: 'bar'}),
+                  h('span', {className: 'bar'}),
+                  h('span', {className: 'bar'})
+                )
+              )
+            ),
+            
+            // بخش موبایل
+            h('div', {className: 'mobile-slogan-bar'},
+              h('p', {}, 'تولید کننده انواع سیستم های شست و شوی صنعتی')
+            )
+          ),
+          // --- پایان هدر ---
+
+          // --- بخش محتوای اصلی (قابل ویرایش) ---
+          h('div', {className: 'main-content-wrapper'},
+            // بخش بنر
+            h('div', {
+              className: 'hero',
+              style: {
+                backgroundImage: bgImage ? 'url(' + bgImage.toString() + ')' : 'none',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                // اگر کلاس hero در فایل css شما ارتفاع دارد، این خط زیر لازم نیست
+                // اما برای اطمینان اینجا هم می‌گذاریم
+                minHeight: '400px', 
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: '#fff', textAlign: 'center'
+              }
+            },
+               h('h1', {}, title)
+            ),
+            
+            // متن پایین بنر
+            h('div', {className: 'container', style: {padding: '20px'}},
+               body
+            )
           )
         );
       }
     });
 
-    // 3. ثبت قالب پیش‌نمایش
-    // کلمه "home" باید دقیقاً هم‌نام با name: "home" در فایل config.yml باشد
+    // ثبت این قالب برای صفحه اصلی
     CMS.registerPreviewTemplate("home", HomePreview);
-    
-    // ثبت همین قالب برای صفحات فرعی (اختیاری)
-    CMS.registerPreviewTemplate("blog", HomePreview);
 
   </script>
 </body>
