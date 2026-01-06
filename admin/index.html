@@ -4,19 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مدیریت سایت سپاهان پخت</title>
-  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  
   <style>
-    /* این استایل‌ها فقط ظاهر خودِ پنل ادمین را زرد می‌کند */
-    div[class*="AppHeader-AppHeader"] {
-      background-color: #ffc107 !important;
-      color: #000 !important;
-    }
-    
-    body {
-      font-family: Tahoma, "Segoe UI", sans-serif !important;
-    }
+    /* استایل‌های خود پنل مدیریت */
+    div[class*="AppHeader-AppHeader"] { background-color: #ffc107 !important; color: #000 !important; }
+    body { font-family: Tahoma, "Segoe UI", sans-serif !important; }
   </style>
 </head>
 <body>
@@ -24,11 +16,54 @@
 
   <script>
     // 1. وصل کردن فایل استایل سایت به بخش پیش‌نمایش
-    // اسلش اول (/) یعنی فایل style.css در ریشه سایت (کنار پوشه admin) است
     CMS.registerPreviewStyle("/style.css"); 
 
-    // نکته مهم: هیچ کد دیگری اینجا ننویسید.
-    // خودِ سیستم به صورت پیش‌فرض تمام فیلدها را در سمت چپ/راست نمایش می‌دهد.
+    // 2. ساخت قالب پیش‌نمایش برای "صفحه اصلی" (Home)
+    var HomePreview = createClass({
+      render: function() {
+        var entry = this.props.entry;
+        // دریافت اطلاعات از فیلدهایی که در config.yml تعریف کردی
+        var title = entry.getIn(['data', 'title']);
+        var image = entry.getIn(['data', 'hero_image']);
+        var body = this.props.widgetFor('body');
+
+        // تبدیل آدرس عکس به فرمت قابل نمایش
+        var bgImage = this.props.getAsset(image);
+
+        // ساخت ساختار HTML شبیه به سایت اصلی
+        // اینجا از دستورات React (h) استفاده می‌شود که شبیه HTML است
+        return h('div', {className: 'home-preview-wrapper'},
+          
+          // نمایش بنر و تصویر پس‌زمینه
+          h('div', {
+            className: 'hero-section', 
+            style: {
+              backgroundImage: bgImage ? 'url(' + bgImage.toString() + ')' : 'none',
+              backgroundSize: 'cover',
+              padding: '50px',
+              textAlign: 'center',
+              color: '#fff',
+              minHeight: '300px'
+            }
+          },
+            h('h1', {}, title) // نمایش عنوان روی بنر
+          ),
+
+          // نمایش متن پایین بنر
+          h('div', {className: 'container', style: {padding: '20px'}},
+            body
+          )
+        );
+      }
+    });
+
+    // 3. ثبت قالب پیش‌نمایش
+    // کلمه "home" باید دقیقاً هم‌نام با name: "home" در فایل config.yml باشد
+    CMS.registerPreviewTemplate("home", HomePreview);
+    
+    // ثبت همین قالب برای صفحات فرعی (اختیاری)
+    CMS.registerPreviewTemplate("blog", HomePreview);
+
   </script>
 </body>
 </html>
