@@ -8,28 +8,27 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
   <style>
-    /* تغییر رنگ هدر بالا از آبی به زرد برند شما */
+    /* این استایل‌ها فقط ظاهر خودِ پنل ادمین را زرد می‌کند */
     div[class*="AppHeader-AppHeader"] {
-      background-color: #ffc107 !important; /* کد رنگ زرد */
+      background-color: #ffc107 !important;
       color: #000 !important;
     }
     
-    /* تغییر فونت کل پنل (اگر فونت وزیر یا ایران‌سنس دارید آدرسش را ایمپورت کنید) */
     body {
       font-family: Tahoma, "Segoe UI", sans-serif !important;
-    }
-
-    /* راست‌چین کردن متون پنل */
-    .cms-editor-visual {
-      direction: rtl;
-      text-align: right;
     }
   </style>
 </head>
 <body>
- <script>
-  // روی نتلیفای، اسلش اول یعنی فایل را از ریشه اصلی سایت بخوان
-  CMS.registerPreviewStyle("/style.css");
-</script>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    // 1. وصل کردن فایل استایل سایت به بخش پیش‌نمایش
+    // اسلش اول (/) یعنی فایل style.css در ریشه سایت (کنار پوشه admin) است
+    CMS.registerPreviewStyle("/style.css"); 
+
+    // نکته مهم: هیچ کد دیگری اینجا ننویسید.
+    // خودِ سیستم به صورت پیش‌فرض تمام فیلدها را در سمت چپ/راست نمایش می‌دهد.
+  </script>
 </body>
 </html>
